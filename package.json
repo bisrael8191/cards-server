@@ -1,0 +1,36 @@
+{
+  "name": "cards-server",
+  "description": "Example app that keeps track of credit card reward categories",
+  "version": "0.0.1",
+  "author": "Brad Israel <bisrael8191@gmail.com> (http://bisrael8191.com)",
+  "license": "Apache-2.0",
+  "homepage": "https://cards.bisrael8191.com",
+  "main": "server.js",
+  "scripts": {
+    "start": "CONSOLE_ENABLED=1 node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docker-build": "docker build -t bisrael8191/cards-server:$npm_package_version .",
+    "docker-test": "docker run --rm bisrael8191/cards-server:$npm_package_version npm test",
+    "docker-run": ". ./env-dev; docker run -d --name=cards-server -e INFLUX_ENABLED=$INFLUX_ENABLED -e INFLUX_HOST=$INFLUX_HOST -e RETHINK_HOST=$RETHINK_HOST -p 5555:5555 bisrael8191/cards-server:$npm_package_version",
+    "docker-stop": "docker kill cards-server && docker rm cards-server",
+    "docker-logs": "docker logs cards-server",
+    "docker-push": ". ./env-dev; docker tag bisrael8191/cards-server:$npm_package_version ${REGISTRY}/bisrael8191/cards-server:$npm_package_version && docker push ${REGISTRY}/bisrael8191/cards-server:$npm_package_version"
+  },
+  "dependencies": {
+    "boom": "^2.7.0",
+    "good": "^5.1.2",
+    "good-console": "^4.1.0",
+    "good-influxdb": "^2.1.0",
+    "hapi": "^8.4.0",
+    "hapi-rethinkdb": "^1.0.0",
+    "hapi-swagger": "^0.7.1",
+    "joi": "^6.1.0",
+    "lodash": "^3.6.0",
+    "rethinkdb": "^2.0.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bisrael8191/cards-server.git"
+  }
+}

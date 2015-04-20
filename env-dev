@@ -1,0 +1,17 @@
+# Environment file for easily overriding 
+# config.js variables when using the npm
+# docker scripts
+
+# Get the default IP address, useful if
+# services are running on the host system
+EXT_IP=$(ip route get 1 | awk '{print $NF;exit}')
+
+# NOTE: You still have to override the docker run command
+# with these variables again, yes it's annoying.
+export INFUX_ENABLED=1
+export INFLUX_HOST="http://$EXT_IP"
+export RETHINK_HOST="$EXT_IP"
+
+# Docker private registry IP
+# Assumes registry is either running locally or ssh port forwarded
+export REGISTRY="127.0.0.1:5000"
